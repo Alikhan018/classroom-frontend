@@ -14,3 +14,13 @@ export const login = [
     required: true,
   },
 ];
+
+export const updateGrade = [
+  {
+    label: "grade",
+    type: "text",
+    id: "grade",
+    placeholder: "Enter grade",
+    required: true,
+  },
+];

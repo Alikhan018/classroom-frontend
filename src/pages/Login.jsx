@@ -13,8 +13,7 @@ export default function Login() {
       console.log(formData);
       console.log(res);
       if (res.message === "Logged in") {
-        console.log(res);
-        nav("/home");
+        nav("/app/home");
       }
     } catch (err) {}
   };
@@ -22,7 +21,9 @@ export default function Login() {
   return (
     <>
       <div className="flex flex-col items-center justify-center w-[100%] h-[100vh] bg-gray-100">
-        <Form inputs={login} onFormSubmit={onSubmit} />
+        <div className="w-[300px]">
+          <Form inputs={login} onFormSubmit={onSubmit} btnText={"Login"} />
+        </div>
       </div>
     </>
   );

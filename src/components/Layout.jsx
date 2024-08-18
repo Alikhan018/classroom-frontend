@@ -4,8 +4,11 @@ import Navbar from "./fixed/Navbar";
 
 export default function Layout() {
   return (
-    <Navbar>
-      <Outlet />
-    </Navbar>
+    <>
+      <Navbar />
+      <main>
+        <Outlet />
+      </main>
+    </>
   );
 }

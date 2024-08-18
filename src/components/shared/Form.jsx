@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "./Button";
 
-export default function Form({ inputs, onFormSubmit }) {
+export default function Form({ inputs, onFormSubmit, btnText }) {
   const [formData, setFormData] = useState(null);
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -14,10 +14,7 @@ export default function Form({ inputs, onFormSubmit }) {
     onFormSubmit(formData);
   };
   return (
-    <form
-      className="lg:w-[25%] md:w-[40%] w-[80%] mx-auto flex flex-col items-end"
-      onSubmit={handleSubmit}
-    >
+    <form className="flex flex-col items-end" onSubmit={handleSubmit}>
       {inputs.map((input) => {
         return (
           <div className="mb-5 w-[100%]">
@@ -38,7 +35,7 @@ export default function Form({ inputs, onFormSubmit }) {
           </div>
         );
       })}
-      <Button text={"Login"} />
+      <Button text={btnText} />
     </form>
   );
 }
