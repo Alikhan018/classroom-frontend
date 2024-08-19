@@ -35,7 +35,7 @@ export default function Component({
                   key={row.userId}
                   className="bg-white hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
-                    handleTupleClick(row.RollNo);
+                    handleTupleClick(row.RollNo || row.TeacherId);
                   }}
                 >
                   {headers.map((key) => {
@@ -46,7 +46,7 @@ export default function Component({
                             className="text-blue-600"
                             onClick={(e) => {
                               e.stopPropagation();
-                              handleUpdateClick(row["RollNo"], row["Name"]);
+                              handleUpdateClick(row);
                             }}
                             key={row[key]}
                           >

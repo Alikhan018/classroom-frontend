@@ -22,7 +22,7 @@ export default function Form({ inputs, onFormSubmit, btnText }) {
               htmlFor={input.label}
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Your {input.label}
+              {input.label.toUpperCase()}
             </label>
             <input
               type={input.type}

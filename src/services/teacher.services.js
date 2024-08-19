@@ -1,19 +1,20 @@
 import axios from "axios";
 
-export default class StudentServices {
+export default class TeacherServices {
   constructor() {
     this.baseUrl = process.env.REACT_APP_API_BASE_URL;
   }
   async getAll() {
     try {
-      const response = await axios.get(`${this.baseUrl}/students`);
+      const response = await axios.get(`${this.baseUrl}/teachers`);
       return response.data.data;
     } catch (err) {}
   }
-  async updateGrade(grade, id) {
+  async update(formData, id) {
     try {
-      await axios.put(`${this.baseUrl}/students/${id}/update-grade`, {
-        grade: grade.grade,
+      await axios.put(`${this.baseUrl}/teachers/update/${id}`, {
+        name: formData.name,
+        address: formData.address,
       });
     } catch (err) {
       console.log(err);
@@ -22,16 +23,15 @@ export default class StudentServices {
   match(string, stringTwo) {
     return string === stringTwo;
   }
-  async create({ email, password, confirm_password, name, age, address }) {
+  async create({ email, password, confirm_password, name, address }) {
     try {
       if (!this.match(password, confirm_password)) {
         return;
       }
-      await axios.post(`${this.baseUrl}/students/create`, {
+      await axios.post(`${this.baseUrl}/teachers/create`, {
         email,
         password,
         name,
-        age,
         address,
       });
     } catch (err) {
