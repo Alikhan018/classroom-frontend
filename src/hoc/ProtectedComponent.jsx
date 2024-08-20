@@ -14,7 +14,7 @@ const ProtectedRoute = ({ element, requiredPerms }) => {
     return <Navigate to="/" />;
   }
 
-  if (hasPermission(permissions, requiredPerms)) {
+  if (!hasPermission(permissions, requiredPerms)) {
     return <DeniedAccess />;
   }
 

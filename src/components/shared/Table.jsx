@@ -48,10 +48,10 @@ export default function Component({
             return (
               <>
                 <TableRow
-                  key={row.userId}
+                  key={row.userId || row.id}
                   className="bg-white hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
-                    handleTupleClick(row.RollNo || row.TeacherId);
+                    handleTupleClick(row.RollNo || row.TeacherId || row.id);
                   }}
                 >
                   {headers.map((key) => {

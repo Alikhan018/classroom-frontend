@@ -11,10 +11,10 @@ export default class IndexServices {
       }
       const response = await axios.get(`${this.baseUrl}/${ent}/count`, {
         params: {
-          id,
+          id: id || null,
         },
       });
-      return response.data.count;
+      return response.data?.count;
     } catch (err) {
       console.log(err);
     }

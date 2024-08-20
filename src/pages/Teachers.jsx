@@ -66,7 +66,6 @@ export default function Teachers() {
   }, []);
   return (
     <>
-      <CheckForm />
       <div className="w-[100%] flex flex-col justify-center items-center gap-[10px] pt-[20px]">
         <Modal
           show={showUpdate}

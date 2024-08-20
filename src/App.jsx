@@ -7,6 +7,9 @@ import Teachers from "./pages/Teachers";
 import AddEntity from "./pages/AddEntity";
 import WithAuth from "./hoc/WithAuth";
 import ProtectedRoute from "./hoc/ProtectedComponent";
+import Settings from "./pages/Settings";
+import Roles from "./pages/Roles";
+import Groups from "./pages/Groups";
 
 const ProtectedLayout = WithAuth(Layout);
 
@@ -23,7 +26,7 @@ function App() {
               element={
                 <ProtectedRoute
                   element={Students}
-                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
+                  requiredPerms={[{ name: "Read", entityType: "Students" }]}
                 />
               }
             />
@@ -32,7 +35,7 @@ function App() {
               element={
                 <ProtectedRoute
                   element={<Teachers />}
-                  requiredPerms={[{ name: "Read", entityType: "Students" }]}
+                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
                 />
               }
             />
@@ -41,7 +44,7 @@ function App() {
               element={
                 <ProtectedRoute
                   element={<AddEntity entity={"teachers"} />}
-                  requiredPerms={[{ name: "Create", entityType: "Admin" }]}
+                  requiredPerms={[{ name: "All", entityType: "Admin" }]}
                 />
               }
             />
@@ -49,12 +52,35 @@ function App() {
               path="students/add"
               element={
                 <ProtectedRoute
-                  element={
-                    <AddEntity
-                      entity={"students"}
-                      requiredPerms={[{ name: "Create", entityType: "Admin" }]}
-                    />
-                  }
+                  element={<AddEntity entity={"students"} />}
+                  requiredPerms={[{ name: "All", entityType: "Admin" }]}
+                />
+              }
+            />
+            <Route
+              path="settings"
+              element={
+                <ProtectedRoute
+                  element={<Settings />}
+                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
+                />
+              }
+            />
+            <Route
+              path="roles"
+              element={
+                <ProtectedRoute
+                  element={<Roles />}
+                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
+                />
+              }
+            />
+            <Route
+              path="groups"
+              element={
+                <ProtectedRoute
+                  element={<Groups />}
+                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
                 />
               }
             />

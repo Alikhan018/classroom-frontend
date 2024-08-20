@@ -9,7 +9,7 @@ import NavLinkItem from "../shared/NavLinkItem";
 export default function Navbar() {
   const { user } = React.useContext(AuthContext);
   return (
-    <nav className="bg-white border-gray-200">
+    <nav className="bg-white border-gray-200 shadow-md">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           to="/app/home"
@@ -41,10 +41,10 @@ export default function Navbar() {
               </span>
             </Dropdown.Header>
             <Dropdown.Item>
-              <Link to="/">Dashboard</Link>
+              <Link to="/user">Dashboard</Link>
             </Dropdown.Item>
             <Dropdown.Item>
-              <Link to="/">Settings</Link>
+              <Link to="/app/settings">Settings</Link>
             </Dropdown.Item>
             <Dropdown.Item>
               <Link
