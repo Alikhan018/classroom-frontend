@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "../components/shared/Button";
 import { headerTc } from "../props/tables";
 import Table from "../components/shared/Table";
@@ -8,14 +8,18 @@ import { faUserGraduate } from "@fortawesome/free-solid-svg-icons";
 import { updateTeacher } from "../props/forms";
 import Form from "../components/shared/Form";
 import { Modal } from "flowbite-react";
+import { AuthContext } from "../context/AuthProvider";
+import { checkPerm } from "../utils/permissions.utils";
 
 export default function Teachers() {
   const nav = useNavigate();
+  const { permissions } = useContext(AuthContext);
   const [teachers, setTeachers] = React.useState([]);
   const [showUpdate, setShowUpdate] = React.useState(false);
   const [name, setName] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [tId, setTId] = React.useState("");
+  const [addPerms, setAddPerms] = React.useState(false);
 
   const onBtnClick = () => {
     nav("/app/teachers/add");
@@ -39,6 +43,13 @@ export default function Teachers() {
       console.log(err);
     }
   };
+  React.useEffect(() => {
+    if (checkPerm(permissions, { name: "Create", entityType: "Teachers" })) {
+      setAddPerms(true);
+    } else {
+      setAddPerms(false);
+    }
+  }, []);
   React.useEffect(() => {
     const fetchTc = async () => {
       try {
@@ -69,16 +80,19 @@ export default function Teachers() {
         </Modal.Body>
       </Modal>
       <h3 className="text-4xl font-semibold">Teachers</h3>
-      <div className="w-[80%] flex justify-end">
-        <div className="w-[150px]">
-          <Button
-            text={"Add new"}
-            icon={faUserGraduate}
-            onBtnClick={onBtnClick}
-          />
+      {addPerms && (
+        <div className="w-[80%] flex justify-end">
+          <div className="w-[150px]">
+            <Button
+              text={"Add new"}
+              icon={faUserGraduate}
+              onBtnClick={onBtnClick}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <Table
+        ent={"Teachers"}
         headers={headerTc}
         body={teachers}
         handleTupleClick={tupleClick}

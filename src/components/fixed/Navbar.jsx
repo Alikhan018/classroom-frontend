@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { Dropdown } from "flowbite-react";
 import logo from "../../assets/images/logo.svg";
 import user from "../../assets/images/user.svg";
+import { AuthContext } from "../../context/AuthProvider";
+import NavLinkItem from "../shared/NavLinkItem";
 
 export default function Navbar() {
+  const { user } = React.useContext(AuthContext);
   return (
     <nav className="bg-white border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -30,9 +33,11 @@ export default function Navbar() {
             arrowIcon={false}
           >
             <Dropdown.Header>
-              <span className="block text-sm">Bonnie Green</span>
+              <span className="block text-sm">
+                {user?.student?.Name || user?.teacher?.Name}
+              </span>
               <span className="block text-sm font-medium text-gray-500">
-                name@flowbite.com
+                {user.email}
               </span>
             </Dropdown.Header>
             <Dropdown.Item>
@@ -42,7 +47,14 @@ export default function Navbar() {
               <Link to="/">Settings</Link>
             </Dropdown.Item>
             <Dropdown.Item>
-              <Link to="/">Sign out</Link>
+              <Link
+                to="/"
+                onClick={() => {
+                  localStorage.removeItem("token");
+                }}
+              >
+                Sign out
+              </Link>
             </Dropdown.Item>
           </Dropdown>
         </div>
@@ -51,31 +63,9 @@ export default function Navbar() {
           id="navbar-user"
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
-            <li>
-              <Link
-                to="/app/home"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-                aria-current="page"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/app/teachers"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                Teachers
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/app/students"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                Students
-              </Link>
-            </li>
+            <NavLinkItem link={"Home"} />
+            <NavLinkItem link={"Teachers"} />
+            <NavLinkItem link={"Students"} />
           </ul>
         </div>
       </div>

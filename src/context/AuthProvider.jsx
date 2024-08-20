@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect, useMemo } from "react";
-import UserServices from "../services/users.services";
+import { createContext, useState, useEffect, useMemo } from "react";
+import UserServices from "../services/user.services";
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {

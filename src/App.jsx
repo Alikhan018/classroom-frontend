@@ -5,6 +5,10 @@ import Layout from "./components/Layout";
 import Students from "./pages/Students";
 import Teachers from "./pages/Teachers";
 import AddEntity from "./pages/AddEntity";
+import WithAuth from "./hoc/WithAuth";
+import ProtectedRoute from "./hoc/ProtectedComponent";
+
+const ProtectedLayout = WithAuth(Layout);
 
 function App() {
   return (
@@ -12,17 +16,47 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/app" element={<Layout />}>
+          <Route path="/app" element={<ProtectedLayout />}>
             <Route path="home" element={<Home />} />
-            <Route path="students" element={<Students />} />
-            <Route path="teachers" element={<Teachers />} />
+            <Route
+              path="students"
+              element={
+                <ProtectedRoute
+                  element={Students}
+                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
+                />
+              }
+            />
+            <Route
+              path="teachers"
+              element={
+                <ProtectedRoute
+                  element={<Teachers />}
+                  requiredPerms={[{ name: "Read", entityType: "Students" }]}
+                />
+              }
+            />
             <Route
               path="teachers/add"
-              element={<AddEntity entity={"teachers"} />}
+              element={
+                <ProtectedRoute
+                  element={<AddEntity entity={"teachers"} />}
+                  requiredPerms={[{ name: "Create", entityType: "Admin" }]}
+                />
+              }
             />
             <Route
               path="students/add"
-              element={<AddEntity entity={"students"} />}
+              element={
+                <ProtectedRoute
+                  element={
+                    <AddEntity
+                      entity={"students"}
+                      requiredPerms={[{ name: "Create", entityType: "Admin" }]}
+                    />
+                  }
+                />
+              }
             />
           </Route>
         </Routes>

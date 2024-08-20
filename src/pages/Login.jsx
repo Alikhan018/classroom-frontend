@@ -3,16 +3,22 @@ import Form from "../components/shared/Form";
 import { useNavigate } from "react-router-dom";
 import UserServices from "../services/user.services";
 import { login } from "../props/forms";
+import { AuthContext } from "../context/AuthProvider";
 
 export default function Login() {
   const nav = useNavigate();
+  const { token, setToken } = React.useContext(AuthContext);
+  if (token) {
+    nav("/app/home");
+  }
+
   const onSubmit = async (formData) => {
     const us = new UserServices();
     try {
       const res = await us.login(formData);
-      console.log(formData);
-      console.log(res);
       if (res.message === "Logged in") {
+        localStorage.setItem("token", res.token);
+        setToken(res.token);
         nav("/app/home");
       }
     } catch (err) {}

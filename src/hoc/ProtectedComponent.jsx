@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import { hasPermission } from "../utils/permissions.utils";
-import Spinner from "../components/Spinner/Spinner";
-import DeniedAccess from "../components/DeniedAccess/DeniedAccess";
+import Spinner from "../components/fixed/Spinner";
+import DeniedAccess from "../components/fixed/DeniedAccess";  
 
 const ProtectedRoute = ({ element, requiredPerms }) => {
   const { token, loading, permissions } = useContext(AuthContext);
