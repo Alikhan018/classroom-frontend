@@ -10,6 +10,7 @@ import Form from "../components/shared/Form";
 import { Modal } from "flowbite-react";
 import { AuthContext } from "../context/AuthProvider";
 import { checkPerm } from "../utils/permissions.utils";
+import CheckForm from "../components/shared/CheckForm";
 
 export default function Teachers() {
   const nav = useNavigate();
@@ -64,43 +65,50 @@ export default function Teachers() {
     fetchTc();
   }, []);
   return (
-    <div className="w-[100%] flex flex-col justify-center items-center gap-[10px] pt-[20px]">
-      <Modal show={showUpdate} size={"md"} onClose={() => setShowUpdate(false)}>
-        <Modal.Header>Update Grade for {name}</Modal.Header>
-        <Modal.Body>
-          <div className="flex flex-col gap-[20px]">
-            <span className="">
-              Current Name: {name} <br /> Current Address : {address}
-            </span>
-            <Form
-              inputs={updateTeacher}
-              btnText={"Update"}
-              onFormSubmit={onUpdate}
-            />
+    <>
+      <CheckForm />
+      <div className="w-[100%] flex flex-col justify-center items-center gap-[10px] pt-[20px]">
+        <Modal
+          show={showUpdate}
+          size={"md"}
+          onClose={() => setShowUpdate(false)}
+        >
+          <Modal.Header>Update Grade for {name}</Modal.Header>
+          <Modal.Body>
+            <div className="flex flex-col gap-[20px]">
+              <span className="">
+                Current Name: {name} <br /> Current Address : {address}
+              </span>
+              <Form
+                inputs={updateTeacher}
+                btnText={"Update"}
+                onFormSubmit={onUpdate}
+              />
+            </div>
+          </Modal.Body>
+        </Modal>
+        <h3 className="text-4xl font-semibold">Teachers</h3>
+        {addPerms && (
+          <div className="w-[80%] flex justify-end">
+            <div className="w-[150px]">
+              <Button
+                text={"Add new"}
+                icon={faUserGraduate}
+                onBtnClick={onBtnClick}
+              />
+            </div>
           </div>
-        </Modal.Body>
-      </Modal>
-      <h3 className="text-4xl font-semibold">Teachers</h3>
-      {addPerms && (
-        <div className="w-[80%] flex justify-end">
-          <div className="w-[150px]">
-            <Button
-              text={"Add new"}
-              icon={faUserGraduate}
-              onBtnClick={onBtnClick}
-            />
-          </div>
-        </div>
-      )}
-      {teachers && (
-        <Table
-          ent={"Teachers"}
-          headers={headerTc}
-          body={teachers}
-          handleTupleClick={tupleClick}
-          handleUpdateClick={updateClick}
-        />
-      )}
-    </div>
+        )}
+        {teachers && (
+          <Table
+            ent={"Teachers"}
+            headers={headerTc}
+            body={teachers}
+            handleTupleClick={tupleClick}
+            handleUpdateClick={updateClick}
+          />
+        )}
+      </div>
+    </>
   );
 }
