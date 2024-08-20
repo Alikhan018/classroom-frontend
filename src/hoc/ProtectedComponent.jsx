@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import { hasPermission } from "../utils/permissions.utils";
 import Spinner from "../components/fixed/Spinner";
-import DeniedAccess from "../components/fixed/DeniedAccess";  
+import DeniedAccess from "../components/fixed/DeniedAccess";
 
 const ProtectedRoute = ({ element, requiredPerms }) => {
   const { token, loading, permissions } = useContext(AuthContext);
@@ -14,7 +14,7 @@ const ProtectedRoute = ({ element, requiredPerms }) => {
     return <Navigate to="/" />;
   }
 
-  if (!hasPermission(permissions, requiredPerms)) {
+  if (hasPermission(permissions, requiredPerms)) {
     return <DeniedAccess />;
   }
 

@@ -13,7 +13,7 @@ import { checkPerm } from "../utils/permissions.utils";
 
 export default function Teachers() {
   const nav = useNavigate();
-  const { permissions } = useContext(AuthContext);
+  const { permissions, user } = useContext(AuthContext);
   const [teachers, setTeachers] = React.useState([]);
   const [showUpdate, setShowUpdate] = React.useState(false);
   const [name, setName] = React.useState("");
@@ -54,14 +54,15 @@ export default function Teachers() {
     const fetchTc = async () => {
       try {
         const ts = new TeacherServices();
-        const res = await ts.getAll();
+        console.log(user);
+        const res = await ts.getAll(user.student.RollNo);
         setTeachers(res);
       } catch (err) {
         setTeachers([]);
       }
     };
     fetchTc();
-  }, [teachers]);
+  }, []);
   return (
     <div className="w-[100%] flex flex-col justify-center items-center gap-[10px] pt-[20px]">
       <Modal show={showUpdate} size={"md"} onClose={() => setShowUpdate(false)}>
@@ -91,13 +92,15 @@ export default function Teachers() {
           </div>
         </div>
       )}
-      <Table
-        ent={"Teachers"}
-        headers={headerTc}
-        body={teachers}
-        handleTupleClick={tupleClick}
-        handleUpdateClick={updateClick}
-      />
+      {teachers && (
+        <Table
+          ent={"Teachers"}
+          headers={headerTc}
+          body={teachers}
+          handleTupleClick={tupleClick}
+          handleUpdateClick={updateClick}
+        />
+      )}
     </div>
   );
 }

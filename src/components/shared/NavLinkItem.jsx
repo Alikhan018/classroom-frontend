@@ -7,7 +7,7 @@ export default function NavLinkItem({ link }) {
   const { permissions } = useContext(AuthContext);
   if (
     link !== "Home" &&
-    checkPerm(permissions, { name: "Read", entityType: link })
+    !checkPerm(permissions, { name: "Read", entityType: link })
   ) {
     return;
   }

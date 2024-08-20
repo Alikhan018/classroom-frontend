@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Dropdown } from "flowbite-react";
 import logo from "../../assets/images/logo.svg";
-import user from "../../assets/images/user.svg";
+import userSvg from "../../assets/images/user.svg";
 import { AuthContext } from "../../context/AuthProvider";
 import NavLinkItem from "../shared/NavLinkItem";
 
@@ -25,7 +25,7 @@ export default function Navbar() {
             label={
               <img
                 className="w-8 h-8 rounded-full"
-                src={user}
+                src={userSvg}
                 alt="User Menu"
               />
             }
