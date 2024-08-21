@@ -23,6 +23,7 @@ export default class IndexServices {
     try {
       const response = await axios.get(`http://localhost:3000/${url}`);
       const data = response.data.data;
+      console.log(data);
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);

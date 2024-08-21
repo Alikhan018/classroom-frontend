@@ -29,8 +29,8 @@ export default function ViewPage({ entity }) {
     nav(`/app/${entity}`);
   };
   return (
-    <div className="flex w-full p-4 w-full">
-      <div className="flex flex-col p-4 gap-[40px]">
+    <div className="flex w-full p-4 w-full justify-center">
+      <div className="flex flex-col p-4 gap-[40px] bg-gray-100 rounded-2xl shadow-lg">
         <div className="flex flex-col gap-2 w-[300px]">
           <h3 className="text-2xl font-semibold">
             {entity.charAt(0).toUpperCase() + entity.slice(1, -1)} Name:{" "}
@@ -57,7 +57,7 @@ export default function ViewPage({ entity }) {
               onChange={handleChange}
             />
           </div>
-          <CheckForm onSubmit={handleSubmit} />
+          <CheckForm onSubmit={handleSubmit} btnText={"Update"} />
         </div>
       </div>
     </div>

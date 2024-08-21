@@ -26,7 +26,7 @@ export default function Component({ title }) {
 
   return (
     <Link to={`/app/${title.toLowerCase()}`}>
-      <div className="w-[300px] hover:text-blue-600 border border-solid border-gray-100 shadow-md rounded-lg px-[20px] py-[30px] hover:shadow-md hover:shadow-blue-200 hover:border-blue-100">
+      <div className="w-[300px] hover:text-gray-900 border border-solid border-gray-100 shadow-md rounded-lg px-[20px] py-[30px] hover:shadow-lg hover:shadow-gray-200 hover:border-gray-100">
         <h5 className="text-2xl font-bold tracking-tight">{title}</h5>
         <p className="font-normal">Total: {num}</p>
       </div>

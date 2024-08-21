@@ -3,7 +3,7 @@ import { Checkbox, Label } from "flowbite-react";
 import FeatureServices from "../../services/features.services";
 import Button from "./Button";
 
-export default function CheckForm({ onSubmit }) {
+export default function CheckForm({ onSubmit, btnText }) {
   const [features, setFeatures] = React.useState([]);
   const [selectedFeatures, setSelectedFeatures] = React.useState([]);
 
@@ -44,7 +44,7 @@ export default function CheckForm({ onSubmit }) {
         {features.map((feature, featureIndex) => (
           <div
             key={featureIndex}
-            className="w-[200px]shadow-md flex flex-col p-4 rounded-lg gap-4 border border-gray-100"
+            className=" shadow-md flex flex-col p-4 rounded-lg gap-4 border border-gray-300"
           >
             <div>
               <h3 className="text-lg font-semibold">{feature.entityType}</h3>
@@ -77,7 +77,7 @@ export default function CheckForm({ onSubmit }) {
           </div>
         ))}
       </div>
-      <Button text={"Create"} className="mt-4" />
+      <Button text={btnText} className="mt-4" />
     </form>
   );
 }

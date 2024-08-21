@@ -5,7 +5,7 @@ import { headerSt } from "../props/tables";
 import { updateGrade } from "../props/forms";
 import StudentServices from "../services/student.services";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "flowbite-react";
+import Modal from "../components/shared/Modal";
 import Button from "../components/shared/Button";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
@@ -54,19 +54,14 @@ export default function Students() {
   }, [students]);
   return (
     <div className="w-[100%] flex flex-col justify-center items-center gap-[10px] pt-[20px]">
-      <Modal show={showUpdate} size={"md"} onClose={() => setShowUpdate(false)}>
-        <Modal.Header>Update Grade for {name}</Modal.Header>
-        <Modal.Body>
-          <div className="flex flex-col gap-[20px]">
-            <span className="">Current Grade: {grade}</span>
-            <Form
-              inputs={updateGrade}
-              btnText={"Update"}
-              onFormSubmit={onUpdate}
-            />
-          </div>
-        </Modal.Body>
-      </Modal>
+      {showUpdate && (
+        <Modal
+          headerTitle={`Update Grade for ${name}`}
+          details={`Current Grade: ${grade}`}
+          formInputs={updateGrade}
+          onUpdate={onUpdate}
+        />
+      )}
       <h3 className="text-4xl font-semibold">Students</h3>
       <div className="w-[80%] flex justify-end">
         <div className="w-[150px]">
