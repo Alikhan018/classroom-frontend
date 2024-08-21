@@ -3,7 +3,7 @@ import { Checkbox, Label } from "flowbite-react";
 import FeatureServices from "../../services/features.services";
 import Button from "./Button";
 
-export default function CheckForm() {
+export default function CheckForm({ onSubmit }) {
   const [features, setFeatures] = React.useState([]);
   const [selectedFeatures, setSelectedFeatures] = React.useState([]);
 
@@ -11,7 +11,6 @@ export default function CheckForm() {
     const fetchAll = async () => {
       const fs = new FeatureServices();
       const response = await fs.getAll();
-      console.log(response);
       setFeatures(response);
     };
     fetchAll();
@@ -19,19 +18,16 @@ export default function CheckForm() {
 
   const handleCheckboxChange = (entityType, name) => {
     setSelectedFeatures((prev) => {
-      // Check if the feature is already selected
       const isSelected = prev.some(
         (feature) => feature.entityType === entityType && feature.name === name
       );
 
       if (isSelected) {
-        // If already selected, remove it
         return prev.filter(
           (feature) =>
             !(feature.entityType === entityType && feature.name === name)
         );
       } else {
-        // If not selected, add it
         return [...prev, { entityType, name }];
       }
     });
@@ -39,26 +35,23 @@ export default function CheckForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Selected Features:", selectedFeatures);
-
-    // Send `selectedFeatures` to the server or process it as needed
-    // Example: axios.post('/your-api-endpoint', selectedFeatures)
+    onSubmit(selectedFeatures);
   };
 
   return (
-    <form className="flex flex-col gap-2 w-[80%]" onSubmit={handleSubmit}>
-      <div className="flex max-w-md gap-4" id="checkbox">
+    <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
+      <div className="flex flex-wrap w-full gap-[30px]" id="checkbox">
         {features.map((feature, featureIndex) => (
           <div
             key={featureIndex}
-            className="w-[300px] shadow-md flex flex-col p-[20px] rounded-lg gap-4 border border-gray-100 border-solid"
+            className="w-[200px]shadow-md flex flex-col p-4 rounded-lg gap-4 border border-gray-100"
           >
             <div>
-              <h3>{feature.entityType}</h3>
+              <h3 className="text-lg font-semibold">{feature.entityType}</h3>
               <hr />
             </div>
 
-            <div className="flex flex-wrap flex-row gap-4">
+            <div className="w-full flex flex-wrap gap-4">
               {feature.names.map((name, index) => (
                 <div key={index} className="flex gap-2 items-center">
                   <Checkbox
@@ -74,7 +67,7 @@ export default function CheckForm() {
                   />
                   <Label
                     htmlFor={`${feature.entityType}-${index}`}
-                    className="flex"
+                    className="text-sm font-medium"
                   >
                     {name}
                   </Label>
@@ -84,7 +77,7 @@ export default function CheckForm() {
           </div>
         ))}
       </div>
-      <Button text={"Create"} />
+      <Button text={"Create"} className="mt-4" />
     </form>
   );
 }

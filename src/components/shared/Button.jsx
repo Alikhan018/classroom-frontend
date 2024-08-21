@@ -14,7 +14,7 @@ export default function Button({ text, icon, onBtnClick }) {
       onClick={onClick}
     >
       <span className="pr-[15px]">{text}</span>
-      <FontAwesomeIcon icon={icon} />
+      {icon && <FontAwesomeIcon icon={icon} />}
     </button>
   );
 }

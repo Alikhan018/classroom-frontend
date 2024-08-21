@@ -19,4 +19,32 @@ export default class IndexServices {
       console.log(err);
     }
   }
+  async fetchData(url) {
+    try {
+      const response = await axios.get(`http://localhost:3000/${url}`);
+      const data = response.data.data;
+      return data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
+  async update(data, ent) {
+    const { id, name, features } = data;
+    try {
+      if (!this.baseUrl) {
+        throw new Error("Base URL is not defined");
+      }
+      const response = await axios.put(`${this.baseUrl}/${ent}/${id}/update`, {
+        id,
+        name,
+        features,
+      });
+
+      console.log(response);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
 }

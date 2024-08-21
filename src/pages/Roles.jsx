@@ -23,7 +23,7 @@ export default function Roles() {
     fetchSt();
   }, []);
   const tupleClick = (tupleId) => {
-    nav(`/app/students/${tupleId}`, { state: { id: tupleId } });
+    nav(`/app/roles/${tupleId}`, { state: { id: tupleId } });
   };
   return (
     <div className="w-[100%] flex flex-col justify-center items-center gap-[10px] pt-[20px]">
@@ -37,12 +37,7 @@ export default function Roles() {
           />
         </div>
       </div>
-      <Table
-        headers={headerRGs}
-        body={roles}
-        handleTupleClick={tupleClick}
-        // handleUpdateClick={updateClick}
-      />
+      <Table headers={headerRGs} body={roles} handleTupleClick={tupleClick} />
     </div>
   );
 }
