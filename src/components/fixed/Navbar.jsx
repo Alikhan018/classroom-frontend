@@ -41,7 +41,7 @@ export default function Navbar() {
               </span>
             </Dropdown.Header>
             <Dropdown.Item>
-              <Link to="/user">Dashboard</Link>
+              <Link to="/app/user">Dashboard</Link>
             </Dropdown.Item>
             <Dropdown.Item>
               <Link to="/app/settings">Settings</Link>

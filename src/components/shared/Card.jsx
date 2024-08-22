@@ -10,19 +10,24 @@ export default function Component({ title }) {
   useEffect(() => {
     const count = async () => {
       const is = new IndexServices();
-      const count = await is.count(
-        title.toLowerCase(),
-        user.student.RollNo || user.teacher.TeacherId || null
-      );
+      let count = 0;
+      if (checkPerm(permissions, { name: "All", entityType: "Admin" })) {
+        count = await is.countAdmin(title.toLowerCase());
+      } else {
+        count = await is.count(
+          title.toLowerCase(),
+          user.student.RollNo || user.teacher.TeacherId || null
+        );
+      }
       console.log(count);
       setNum(count);
     };
     count();
   }, []);
-  // const { permissions } = useContext(AuthContext);
-  // if (!checkPerm(permissions, { name: "Read", entityType: title })) {
-  //   return;
-  // }
+  const { permissions } = useContext(AuthContext);
+  if (!checkPerm(permissions, { name: "Read", entityType: title })) {
+    return;
+  }
 
   return (
     <Link to={`/app/${title.toLowerCase()}`}>

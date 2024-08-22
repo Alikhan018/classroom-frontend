@@ -4,6 +4,22 @@ export default class IndexServices {
   constructor() {
     this.baseUrl = process.env.REACT_APP_API_BASE_URL;
   }
+  async countAdmin(ent) {
+    try {
+      if (!this.baseUrl) {
+        throw new Error("Base URL is not defined");
+      }
+      let response;
+      if (ent === "roles" || ent === "groups") {
+        response = await axios.get(`${this.baseUrl}/${ent}/count`);
+      } else {
+        response = await axios.get(`${this.baseUrl}/${ent}/count/admin`);
+      }
+      return response.data?.count;
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async count(ent, id) {
     try {
       if (!this.baseUrl) {
