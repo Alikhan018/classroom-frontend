@@ -29,13 +29,10 @@ export default function Component({
     }
   }, []);
   return (
-    <div className="w-[80%] overflow-x-auto border border-gray-300 rounded-lg">
+    <div className="w-[87%] overflow-x-auto border border-gray-300 rounded-lg">
       <Table>
         <TableHead>
           {headers.map((header, index) => {
-            if (header === "Actions" && editPerm) {
-              return <></>;
-            }
             return (
               <TableHeadCell className="bg-gray-200" key={index}>
                 {header}

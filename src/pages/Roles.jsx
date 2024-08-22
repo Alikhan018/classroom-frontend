@@ -22,6 +22,9 @@ export default function Roles() {
     };
     fetchSt();
   }, []);
+  const updateClick = ({ id }) => {
+    nav(`/app/roles/${id}`, { state: { id } });
+  };
   const tupleClick = (tupleId) => {
     nav(`/app/roles/${tupleId}`, { state: { id: tupleId } });
   };
@@ -37,7 +40,12 @@ export default function Roles() {
           />
         </div>
       </div>
-      <Table headers={headerRGs} body={roles} handleTupleClick={tupleClick} />
+      <Table
+        headers={headerRGs}
+        body={roles}
+        handleTupleClick={tupleClick}
+        handleUpdateClick={updateClick}
+      />
     </div>
   );
 }

@@ -4,9 +4,19 @@ export default class StudentServices {
   constructor() {
     this.baseUrl = process.env.REACT_APP_API_BASE_URL;
   }
-  async getAll() {
+  async getAll(teacherId) {
     try {
-      const response = await axios.get(`${this.baseUrl}/students`);
+      const response = await axios.get(`${this.baseUrl}/student`, {
+        params: {
+          teacherId,
+        },
+      });
+      return response.data.data;
+    } catch (err) {}
+  }
+  async getAllAdmin() {
+    try {
+      const response = await axios.get(`${this.baseUrl}/students/admin`);
       return response.data.data;
     } catch (err) {}
   }

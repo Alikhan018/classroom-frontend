@@ -55,7 +55,12 @@ export default function Teachers() {
       try {
         const ts = new TeacherServices();
         console.log(user);
-        const res = await ts.getAll(user.student.RollNo);
+        let res;
+        if (checkPerm(permissions, { name: "All", entityType: "Admin" })) {
+          res = await ts.getAllAdmin();
+        } else {
+          res = await ts.getAll(user.student.RollNo);
+        }
         setTeachers(res);
       } catch (err) {
         setTeachers([]);

@@ -27,7 +27,7 @@ function App() {
               path="students"
               element={
                 <ProtectedRoute
-                  element={Students}
+                  element={<Students />}
                   requiredPerms={[{ name: "Read", entityType: "Students" }]}
                 />
               }

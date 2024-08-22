@@ -14,6 +14,12 @@ export default class TeacherServices {
       return response.data.data;
     } catch (err) {}
   }
+  async getAllAdmin() {
+    try {
+      const response = await axios.get(`${this.baseUrl}/teachers/admin`);
+      return response.data.data;
+    } catch (err) {}
+  }
   async update(formData, id) {
     try {
       await axios.put(`${this.baseUrl}/teachers/update/${id}`, {

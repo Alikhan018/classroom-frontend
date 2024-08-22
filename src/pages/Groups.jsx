@@ -21,6 +21,9 @@ export default function Groups() {
     };
     fetchSt();
   }, []);
+  const updateClick = ({ id }) => {
+    nav(`/app/groups/${id}`, { state: { id } });
+  };
   const tupleClick = (tupleId) => {
     nav(`/app/groups/${tupleId}`, { state: { id: tupleId } });
   };
@@ -40,7 +43,7 @@ export default function Groups() {
         headers={headerRGs}
         body={groups}
         handleTupleClick={tupleClick}
-        // handleUpdateClick={updateClick}
+        handleUpdateClick={updateClick}
       />
     </div>
   );

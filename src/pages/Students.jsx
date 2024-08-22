@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../components/shared/Modal";
 import Button from "../components/shared/Button";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
+import { checkPerm } from "../utils/permissions.utils";
+import { AuthContext } from "../context/AuthProvider";
 
 export default function Students() {
   const nav = useNavigate();
@@ -16,6 +18,7 @@ export default function Students() {
   const [name, setName] = React.useState(null);
   const [roll, setRoll] = React.useState(null);
   const [grade, setGrade] = React.useState("");
+  const { permissions, user } = React.useContext(AuthContext);
 
   const onClick = () => {
     nav("/app/students/add");
@@ -43,7 +46,12 @@ export default function Students() {
     const fetchSt = async () => {
       try {
         const ss = new StudentServices();
-        const res = await ss.getAll();
+        let res;
+        if (checkPerm(permissions, { name: "All", entityType: "Admin" })) {
+          res = await ss.getAllAdmin();
+        } else {
+          res = await ss.getAll(user.teacher.TeacherId);
+        }
         setStudents(res);
         console.log(students);
       } catch (err) {
@@ -51,7 +59,7 @@ export default function Students() {
       }
     };
     fetchSt();
-  }, [students]);
+  }, []);
   return (
     <div className="w-[100%] flex flex-col justify-center items-center gap-[10px] pt-[20px]">
       {showUpdate && (
