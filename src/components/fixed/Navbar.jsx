@@ -37,7 +37,7 @@ export default function Navbar() {
                 {user?.student?.Name || user?.teacher?.Name}
               </span>
               <span className="block text-sm font-medium text-gray-500">
-                {user.email}
+                {user?.email}
               </span>
             </Dropdown.Header>
             <Dropdown.Item>

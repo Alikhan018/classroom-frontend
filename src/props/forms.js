@@ -124,3 +124,28 @@ export const addStudent = [
     required: true,
   },
 ];
+export const prevPass = [
+  {
+    label: "password",
+    type: "password",
+    id: "password",
+    placeholder: "********",
+    required: true,
+  },
+];
+export const newPass = [
+  {
+    label: "password",
+    type: "password",
+    id: "password",
+    placeholder: "********",
+    required: true,
+  },
+  {
+    label: "Re-Enter Password",
+    type: "password",
+    id: "password_two",
+    placeholder: "********",
+    required: true,
+  },
+];

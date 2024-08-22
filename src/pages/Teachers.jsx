@@ -74,7 +74,7 @@ export default function Teachers() {
         {showUpdate && (
           <Modal
             headerTitle={`Update Details for ${name}`}
-            details={`Current Name: ${name} <br /> Current Address : ${address}`}
+            details={`Current Name: ${name} Current Address : ${address}`}
             onUpdate={onUpdate}
             formInputs={updateTeacher}
           />

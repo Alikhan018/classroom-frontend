@@ -109,6 +109,7 @@ export default class UserServices {
   }
   async changePasswordForUser(data, id) {
     try {
+      console.log(data);
       const res = this.matchPassword(data);
       if (res) {
         const newPassword = data.password;

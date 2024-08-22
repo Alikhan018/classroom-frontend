@@ -13,6 +13,8 @@ import Groups from "./pages/Groups";
 import ViewPage from "./pages/ViewPage";
 import ViewEntityPage from "./pages/ViewEntityPage";
 import Dashboard from "./pages/Dashboard";
+import ChangePassword from "./pages/ChangePassword";
+import NewPassword from "./pages/NewPassword";
 
 const ProtectedLayout = WithAuth(Layout);
 
@@ -65,7 +67,7 @@ function App() {
               element={
                 <ProtectedRoute
                   element={<Settings />}
-                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
+                  requiredPerms={[{ name: "All", entityType: "Admin" }]}
                 />
               }
             />
@@ -74,7 +76,7 @@ function App() {
               element={
                 <ProtectedRoute
                   element={<Roles />}
-                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
+                  requiredPerms={[{ name: "All", entityType: "Admin" }]}
                 />
               }
             />
@@ -83,7 +85,7 @@ function App() {
               element={
                 <ProtectedRoute
                   element={<Groups />}
-                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
+                  requiredPerms={[{ name: "All", entityType: "Admin" }]}
                 />
               }
             />
@@ -92,7 +94,7 @@ function App() {
               element={
                 <ProtectedRoute
                   element={<ViewPage entity={"groups"} />}
-                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
+                  requiredPerms={[{ name: "All", entityType: "Admin" }]}
                 />
               }
             />
@@ -101,7 +103,7 @@ function App() {
               element={
                 <ProtectedRoute
                   element={<ViewPage entity={"roles"} />}
-                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
+                  requiredPerms={[{ name: "All", entityType: "Admin" }]}
                 />
               }
             />
@@ -110,7 +112,7 @@ function App() {
               element={
                 <ProtectedRoute
                   element={<ViewEntityPage entity={"students"} />}
-                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
+                  requiredPerms={[{ name: "Read", entityType: "Students" }]}
                 />
               }
             />
@@ -123,15 +125,9 @@ function App() {
                 />
               }
             />
-            <Route
-              path="user"
-              element={
-                <ProtectedRoute
-                  element={<Dashboard />}
-                  requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
-                />
-              }
-            />
+            <Route path="user" element={<Dashboard />} />
+            <Route path="user/change-password" element={<ChangePassword />} />
+            <Route path="user/change-password/new" element={<NewPassword />} />
           </Route>
         </Routes>
       </BrowserRouter>
