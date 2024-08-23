@@ -27,16 +27,15 @@ export default function Groups() {
   const tupleClick = (tupleId) => {
     nav(`/app/groups/${tupleId}`, { state: { id: tupleId } });
   };
+  const onClick = () => {
+    nav("/app/groups/create");
+  };
   return (
     <div className="w-[100%] flex flex-col justify-center items-center gap-[10px] pt-[20px]">
       <h3 className="text-4xl font-semibold">Groups</h3>
       <div className="w-[73%] flex justify-end">
         <div className="w-[150px]">
-          <Button
-            text={"Add new"}
-            icon={faUserGroup}
-            // onBtnClick={onClick}
-          />
+          <Button text={"Add new"} icon={faUserGroup} onBtnClick={onClick} />
         </div>
       </div>
       <Table

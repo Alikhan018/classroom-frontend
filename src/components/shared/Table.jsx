@@ -22,6 +22,7 @@ export default function Component({
   const { permissions } = useContext(AuthContext);
   const [editPerm, setEditPerm] = useState(false);
   useEffect(() => {
+    console.log(ent);
     if (checkPerm(permissions, { name: "Update", entityType: ent })) {
       setEditPerm(true);
     } else {

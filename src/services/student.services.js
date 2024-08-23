@@ -6,13 +6,16 @@ export default class StudentServices {
   }
   async getAll(teacherId) {
     try {
-      const response = await axios.get(`${this.baseUrl}/student`, {
+      const response = await axios.get(`${this.baseUrl}/students`, {
         params: {
           teacherId,
         },
       });
       return response.data.data;
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
   }
   async getAllAdmin() {
     try {

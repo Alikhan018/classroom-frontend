@@ -12,6 +12,8 @@ import Modal from "../components/shared/Modal";
 import { updateGrade, updateTeacher } from "../props/forms";
 import StudentServices from "../services/student.services";
 import TeacherServices from "../services/teacher.services";
+import { checkPerm } from "../utils/permissions.utils";
+import { AuthContext } from "../context/AuthProvider";
 
 export default function ViewEntityPage({ entity }) {
   const nav = useNavigate();
@@ -20,7 +22,21 @@ export default function ViewEntityPage({ entity }) {
   const [data, setData] = React.useState({});
   const [icon, setIcon] = React.useState(null);
   const [showUpdate, setShowUpdate] = React.useState(false);
+  const [editPerm, setEditPerm] = React.useState(false);
+  const { permissions } = React.useContext(AuthContext);
 
+  React.useEffect(() => {
+    if (
+      checkPerm(permissions, {
+        name: "Update",
+        entityType: entity.charAt(0).toUpperCase() + entity.slice(1, -1) + "s",
+      })
+    ) {
+      setEditPerm(true);
+    } else {
+      setEditPerm(false);
+    }
+  }, []);
   React.useEffect(() => {
     const fetch = async () => {
       const url = `${entity}/${id}`;
@@ -82,15 +98,17 @@ export default function ViewEntityPage({ entity }) {
     <div className="w-full flex justify-center pt-6">
       {showUpdate && <Modal {...props} />}
       <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 pt-4">
-        <div className="flex justify-end px-4 pt-4">
-          <FontAwesomeIcon
-            icon={faPen}
-            className="cursor-pointer hover:text-blue-700"
-            onClick={() => {
-              setShowUpdate(true);
-            }}
-          />
-        </div>
+        {editPerm && (
+          <div className="flex justify-end px-4 pt-4">
+            <FontAwesomeIcon
+              icon={faPen}
+              className="cursor-pointer hover:text-blue-700"
+              onClick={() => {
+                setShowUpdate(true);
+              }}
+            />
+          </div>
+        )}
         <div className="flex flex-col items-center pb-10">
           <FontAwesomeIcon icon={icon} className="text-[34px]" />
           <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">

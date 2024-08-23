@@ -44,6 +44,7 @@ export default function Students() {
     }
   };
   React.useEffect(() => {
+    console.log(permissions);
     if (checkPerm(permissions, { name: "All", entityType: "Admin" })) {
       setAddPerm(true);
     } else {
@@ -58,7 +59,7 @@ export default function Students() {
         if (checkPerm(permissions, { name: "All", entityType: "Admin" })) {
           res = await ss.getAllAdmin();
         } else {
-          res = await ss.getAll(user.teacher.TeacherId);
+          res = await ss.getAll(user?.teacher?.TeacherId);
         }
         setStudents(res);
         console.log(students);
@@ -90,15 +91,14 @@ export default function Students() {
           </div>
         </div>
       )}
-      {students ? (
+      {students && (
         <Table
           headers={headerSt}
           body={students}
+          ent={"Students"}
           handleTupleClick={tupleClick}
           handleUpdateClick={updateClick}
         />
-      ) : (
-        <div> No Students Enrolled </div>
       )}
     </div>
   );
