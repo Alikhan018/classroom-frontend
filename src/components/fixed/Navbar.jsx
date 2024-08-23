@@ -1,13 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Dropdown } from "flowbite-react";
 import logo from "../../assets/images/logo.svg";
 import userSvg from "../../assets/images/user.svg";
 import { AuthContext } from "../../context/AuthProvider";
 import NavLinkItem from "../shared/NavLinkItem";
+import { checkPerm } from "../../utils/permissions.utils";
 
 export default function Navbar() {
-  const { user } = React.useContext(AuthContext);
+  const [settings, setSettings] = React.useState(false);
+  React.useEffect(() => {
+    if (checkPerm(permissions, { name: "All", entityType: "Admin" })) {
+      setSettings(true);
+    } else {
+      setSettings(false);
+    }
+  }, []);
+  const nav = useNavigate();
+  const { user, setToken, token, permissions } = React.useContext(AuthContext);
+  const logout = () => {
+    localStorage.removeItem("token");
+    nav("/");
+    window.location.reload();
+  };
   return (
     <nav className="bg-white border-gray-200 shadow-md">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -43,18 +58,19 @@ export default function Navbar() {
             <Dropdown.Item>
               <Link to="/app/user">Dashboard</Link>
             </Dropdown.Item>
+            {settings && (
+              <Dropdown.Item>
+                <Link to="/app/settings">Settings</Link>
+              </Dropdown.Item>
+            )}
             <Dropdown.Item>
-              <Link to="/app/settings">Settings</Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Link
-                to="/"
+              <span
                 onClick={() => {
-                  localStorage.removeItem("token");
+                  logout();
                 }}
               >
                 Sign out
-              </Link>
+              </span>
             </Dropdown.Item>
           </Dropdown>
         </div>

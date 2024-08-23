@@ -15,9 +15,9 @@ export default function Form({ inputs, onFormSubmit, btnText }) {
   };
   return (
     <form className="flex flex-col items-end" onSubmit={handleSubmit}>
-      {inputs.map((input) => {
+      {inputs.map((input, index) => {
         return (
-          <div className="mb-5 w-[100%]">
+          <div key={index} className="mb-5 w-[100%]">
             <label
               htmlFor={input.label}
               className="block mb-2 text-sm font-medium text-gray-900"

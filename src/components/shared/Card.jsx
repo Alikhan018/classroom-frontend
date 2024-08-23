@@ -6,7 +6,7 @@ import IndexServices from "../../services/index.services";
 
 export default function Component({ title }) {
   const [num, setNum] = useState(0);
-  const { user } = useContext(AuthContext);
+  const { user, permissions } = useContext(AuthContext);
   useEffect(() => {
     const count = async () => {
       const is = new IndexServices();
@@ -16,7 +16,7 @@ export default function Component({ title }) {
       } else {
         count = await is.count(
           title.toLowerCase(),
-          user.student.RollNo || user.teacher.TeacherId || null
+          user?.student?.RollNo || user?.teacher?.TeacherId || null
         );
       }
       console.log(count);
@@ -24,7 +24,6 @@ export default function Component({ title }) {
     };
     count();
   }, []);
-  const { permissions } = useContext(AuthContext);
   if (!checkPerm(permissions, { name: "Read", entityType: title })) {
     return;
   }

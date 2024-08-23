@@ -15,6 +15,7 @@ import ViewEntityPage from "./pages/ViewEntityPage";
 import Dashboard from "./pages/Dashboard";
 import ChangePassword from "./pages/ChangePassword";
 import NewPassword from "./pages/NewPassword";
+import AddRG from "./pages/AddRG";
 
 const ProtectedLayout = WithAuth(Layout);
 
@@ -122,6 +123,24 @@ function App() {
                 <ProtectedRoute
                   element={<ViewEntityPage entity={"teachers"} />}
                   requiredPerms={[{ name: "Read", entityType: "Teachers" }]}
+                />
+              }
+            />
+            <Route
+              path="roles/create"
+              element={
+                <ProtectedRoute
+                  element={<AddRG entity={"roles"} />}
+                  requiredPerms={[{ name: "All", entityType: "Admin" }]}
+                />
+              }
+            />
+            <Route
+              path="groups/create"
+              element={
+                <ProtectedRoute
+                  element={<AddRG entity={"groups"} />}
+                  requiredPerms={[{ name: "All", entityType: "Admin" }]}
                 />
               }
             />

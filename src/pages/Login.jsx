@@ -9,9 +9,12 @@ export default function Login() {
   const [err, setError] = React.useState(false);
   const nav = useNavigate();
   const { token, setToken } = React.useContext(AuthContext);
-  if (token) {
-    nav("/app/home");
-  }
+  React.useEffect(() => {
+    if (token) {
+      nav("/app/home");
+      // window.location.reload();
+    }
+  }, []);
 
   const onSubmit = async (formData) => {
     const us = new UserServices();
@@ -21,12 +24,14 @@ export default function Login() {
         localStorage.setItem("token", res.token);
         setToken(res.token);
         setError(false);
-        nav("/app/home");
+        // nav("/app/home");
+        window.location.assign(`/app/home`);
       } else {
         setError(true);
       }
     } catch (err) {
       setError(true);
+      console.log(err);
     }
   };
 

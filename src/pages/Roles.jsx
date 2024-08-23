@@ -28,16 +28,15 @@ export default function Roles() {
   const tupleClick = (tupleId) => {
     nav(`/app/roles/${tupleId}`, { state: { id: tupleId } });
   };
+  const onClick = () => {
+    nav("/app/roles/create");
+  };
   return (
     <div className="w-[100%] flex flex-col justify-center items-center gap-[10px] pt-[20px]">
       <h3 className="text-4xl font-semibold">Roles</h3>
       <div className="w-[73%] flex justify-end">
         <div className="w-[150px]">
-          <Button
-            text={"Add new"}
-            icon={faGear}
-            // onBtnClick={onClick}
-          />
+          <Button text={"Add new"} icon={faGear} onBtnClick={onClick} />
         </div>
       </div>
       <Table

@@ -15,6 +15,7 @@ export default function Students() {
   const nav = useNavigate();
   const [students, setStudents] = React.useState([]);
   const [showUpdate, setShowUpdate] = React.useState(false);
+  const [addPerm, setAddPerm] = React.useState(false);
   const [name, setName] = React.useState(null);
   const [roll, setRoll] = React.useState(null);
   const [grade, setGrade] = React.useState("");
@@ -42,6 +43,13 @@ export default function Students() {
       console.log(err);
     }
   };
+  React.useEffect(() => {
+    if (checkPerm(permissions, { name: "All", entityType: "Admin" })) {
+      setAddPerm(true);
+    } else {
+      setAddPerm(false);
+    }
+  }, [permissions]);
   React.useEffect(() => {
     const fetchSt = async () => {
       try {
@@ -71,21 +79,27 @@ export default function Students() {
         />
       )}
       <h3 className="text-4xl font-semibold">Students</h3>
-      <div className="w-[80%] flex justify-end">
-        <div className="w-[150px]">
-          <Button
-            text={"Add new"}
-            icon={faGraduationCap}
-            onBtnClick={onClick}
-          />
+      {addPerm && (
+        <div className="w-[80%] flex justify-end">
+          <div className="w-[150px]">
+            <Button
+              text={"Add new"}
+              icon={faGraduationCap}
+              onBtnClick={onClick}
+            />
+          </div>
         </div>
-      </div>
-      <Table
-        headers={headerSt}
-        body={students}
-        handleTupleClick={tupleClick}
-        handleUpdateClick={updateClick}
-      />
+      )}
+      {students ? (
+        <Table
+          headers={headerSt}
+          body={students}
+          handleTupleClick={tupleClick}
+          handleUpdateClick={updateClick}
+        />
+      ) : (
+        <div> No Students Enrolled </div>
+      )}
     </div>
   );
 }

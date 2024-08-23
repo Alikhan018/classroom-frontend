@@ -13,6 +13,7 @@ export default class IndexServices {
       if (ent === "roles" || ent === "groups") {
         response = await axios.get(`${this.baseUrl}/${ent}/count`);
       } else {
+        console.log(1);
         response = await axios.get(`${this.baseUrl}/${ent}/count/admin`);
       }
       return response.data?.count;
@@ -59,6 +60,18 @@ export default class IndexServices {
 
       console.log(response);
       return response.data;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
+  async create(ent, { name, features }) {
+    try {
+      const res = await axios.post(`${this.baseUrl}/${ent}/create`, {
+        name,
+        features,
+      });
+      console.log(res);
     } catch (err) {
       console.log(err);
       return err;

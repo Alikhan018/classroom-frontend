@@ -22,8 +22,11 @@ export default class UserServices {
       }
       const decoded = jwtDecode(token);
       const response = await axios.get(
-        `${this.baseUrl}/users/${decoded.refinedFromUser.id}`
+        `${this.baseUrl}/users/${decoded?.refinedFromUser?.id}`
       );
+      if (response.data) {
+        return response.data;
+      }
       return response.data;
     } catch (err) {
       console.log(err);

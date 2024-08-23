@@ -1,34 +1,22 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import IndexServices from "../services/index.services";
 import CheckForm from "../components/shared/CheckForm";
 import { Label, TextInput } from "flowbite-react";
 
 export default function ViewPage({ entity }) {
   const nav = useNavigate();
-  const loc = useLocation();
-  if (!loc.state || !loc.state.id || loc.state.id === null) {
-    nav(`${entity}`);
-  }
-  const id = loc.state.id;
-  const [data, setData] = React.useState([]);
-  const [formName, setFormName] = React.useState(data?.name);
+  const [name, setName] = React.useState("");
   React.useEffect(() => {
-    const fetch = async () => {
-      const url = `${entity}/${id}`;
-      const is = new IndexServices();
-      const res = await is.fetchData(url);
-      setFormName(res.name);
-      setData(res);
-    };
+    const fetch = async () => {};
     fetch();
   }, []);
   const handleChange = (e) => {
-    setFormName(e.target.value);
+    setName(e.target.value);
   };
   const handleSubmit = async (features) => {
     const is = new IndexServices();
-    await is.update({ id, name: formName, features }, entity);
+    await is.create(entity, { name: name, features });
     nav(`/app/${entity}`);
   };
   return (
@@ -36,12 +24,8 @@ export default function ViewPage({ entity }) {
       <div className="flex flex-col p-4 gap-[40px] bg-gray-100 rounded-2xl shadow-lg">
         <div className="flex flex-col gap-2 w-[300px]">
           <h3 className="text-2xl font-semibold">
-            {entity.charAt(0).toUpperCase() + entity.slice(1, -1)} Name:{" "}
-            {data?.name}
+            Create {entity.charAt(0).toUpperCase() + entity.slice(1, -1)}
           </h3>
-          <span className="text-sm hover:text-blue-500 cursor-pointer">
-            Users: {data?.users?.length}
-          </span>
           <hr />
         </div>
         <div className="w-[100%] flex flex-col gap-4">
@@ -58,11 +42,11 @@ export default function ViewPage({ entity }) {
               id="name"
               type="text"
               required
-              value={formName}
+              value={name}
               onChange={handleChange}
             />
           </div>
-          <CheckForm onSubmit={handleSubmit} btnText={"Update"} />
+          <CheckForm onSubmit={handleSubmit} btnText={"Create"} />
         </div>
       </div>
     </div>

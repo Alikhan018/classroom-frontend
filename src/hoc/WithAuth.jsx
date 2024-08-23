@@ -5,14 +5,14 @@ import Spinner from "../components/fixed/Spinner";
 const WithAuth = (WrappedComponent) => {
   return function AuthWrappedComponent(props) {
     const nav = useNavigate();
-    const { token, loading } = React.useContext(AuthContext);
+    const { token, loading, user } = React.useContext(AuthContext);
 
     useEffect(() => {
       if (!loading && !token) {
         nav("/");
       }
     }, [loading, token, nav]);
-    if (loading) {
+    if (loading && !user) {
       return <Spinner />;
     }
 

@@ -17,13 +17,13 @@ export const AuthProvider = ({ children }) => {
       const response = await us.getUser(token);
       const userData = response.data;
 
-      const userPermissions = userData.features.map((f) => f);
-      userData.roles.forEach((role) => {
-        role.features.forEach((feature) => userPermissions.push(feature));
+      const userPermissions = await userData?.features.map((f) => f);
+      userData?.roles.forEach((role) => {
+        role?.features.forEach((feature) => userPermissions.push(feature));
       });
 
-      userData.groups.forEach((group) => {
-        group.features.forEach((feature) => userPermissions.push(feature));
+      await userData?.groups.forEach((group) => {
+        group?.features.forEach((feature) => userPermissions.push(feature));
       });
 
       setUser(userData);

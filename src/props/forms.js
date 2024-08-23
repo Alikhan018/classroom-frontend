@@ -149,3 +149,21 @@ export const newPass = [
     required: true,
   },
 ];
+export const Role = [
+  {
+    label: "name",
+    type: "text",
+    id: "name",
+    placeholder: "Enter role name",
+    required: true,
+  },
+];
+export const Group = [
+  {
+    label: "name",
+    type: "text",
+    id: "name",
+    placeholder: "Enter group name",
+    required: true,
+  },
+];
